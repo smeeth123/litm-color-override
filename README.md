@@ -14,7 +14,7 @@ The change is purely visual and does not alter mechanics or data.
 
 What It Changes
 
-Different parts of the UI render Tags and Statuses inconsistently.
+Different parts of the UI render tags and statuses inconsistently.
 In several places, statuses are actually output as plain .tag elements with a tier suffix, which makes them impossible to style correctly using CSS alone.
 
 This module:
