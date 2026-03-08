@@ -1,4 +1,5 @@
 # Legend in the Mist — Tag & Status Color Override
+<img width="1716" height="701" alt="Screenshot 2026-03-08 at 4 11 36 AM" src="https://github.com/user-attachments/assets/4b07c456-2531-4228-b4c3-01bf419fbad8" />
 
 This module overrides the tag and status colors in the Legend in the Mist Foundry system so that they are consistent with the colors used in the official books.
 
@@ -11,7 +12,7 @@ The change is purely visual and does not alter mechanics or data.
 
 ⸻
 
-What It Fixes
+What It Changes
 
 Different parts of the UI render Tags and Statuses inconsistently.
 In several places, statuses are actually output as plain .tag elements with a tier suffix, which makes them impossible to style correctly using CSS alone.
