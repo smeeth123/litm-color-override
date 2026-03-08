@@ -1,0 +1,107 @@
+/* Legend in the Mist — Color Override
+   Tags: #eed693
+   Statuses: #bccdb0
+   Positive/Negative does not change background color
+*/
+
+:root {
+  --litm-tag-yellow: #eed693;
+  --litm-status-green: #bccdb0;
+}
+
+/* Keep system vars aligned */
+body {
+  --litm-color-tag-bg: var(--litm-tag-yellow);
+  --litm-color-status-bg: var(--litm-status-green);
+}
+
+/* ---------------------------------
+   Tags
+   --------------------------------- */
+
+.mist-engine .tag,
+.mist-engine.tag,
+.journal-entry-content .tag,
+.message-content .selected-tags .tag,
+.roll-dialog-container .selected-tags-container .tag,
+.character-container .selected-tags-container .tag,
+.mist-engine .npc-tag,
+.mist-engine mark,
+.mist-engine [class*="challenge"] .tag,
+.mist-engine [data-document-name*="Challenge"] .tag,
+.mist-engine [data-type*="challenge"] .tag,
+.mist-engine .fts-input-name.tag {
+  background-color: var(--litm-tag-yellow) !important;
+}
+
+/* ---------------------------------
+   Statuses
+   --------------------------------- */
+
+.mist-engine .status,
+.mist-engine.status,
+.journal-entry-content .status,
+.mist-engine .npc-tag-status-value,
+.mist-engine mark.green,
+.mist-engine [class*="challenge"] .status,
+.mist-engine [data-document-name*="Challenge"] .status,
+.mist-engine [data-type*="challenge"] .status,
+.mist-engine .fts-input-name.status {
+  background-color: var(--litm-status-green) !important;
+}
+
+/* ---------------------------------
+   Prevent valence-based recoloring
+   --------------------------------- */
+
+.tag.positive,
+.tag.negative,
+.mist-engine .tag.positive,
+.mist-engine .tag.negative,
+.message-content .selected-tags .tag.positive,
+.message-content .selected-tags .tag.negative,
+.roll-dialog-container .selected-tags-container .tag.positive,
+.roll-dialog-container .selected-tags-container .tag.negative,
+.character-container .selected-tags-container .tag.positive,
+.character-container .selected-tags-container .tag.negative,
+.mist-engine .fts-input-name.tag.positive,
+.mist-engine .fts-input-name.tag.negative,
+mark.orange,
+.mist-engine mark.orange {
+  background-color: var(--litm-tag-yellow) !important;
+}
+
+.status.positive,
+.status.negative,
+.mist-engine .status.positive,
+.mist-engine .status.negative,
+.mist-engine .fts-input-name.status.positive,
+.mist-engine .fts-input-name.status.negative {
+  background-color: var(--litm-status-green) !important;
+}
+
+/* ---------------------------------
+   NPC limit description
+   --------------------------------- */
+
+.mist-engine .npc-limit-description .tag {
+  background-color: var(--litm-tag-yellow) !important;
+}
+
+.mist-engine .npc-limit-description .status {
+  background-color: var(--litm-status-green) !important;
+}
+
+/* ---------------------------------
+   Tiered statuses rendered as `.tag`
+   module.js adds `.is-status` in these UIs
+   --------------------------------- */
+
+.selected-tags-container .tag.is-status,
+.selected-tags-container .tag.is-status.positive,
+.selected-tags-container .tag.is-status.negative,
+.message-content .selected-tags .tag.is-status,
+.message-content .selected-tags .tag.is-status.positive,
+.message-content .selected-tags .tag.is-status.negative {
+  background-color: var(--litm-status-green) !important;
+}
