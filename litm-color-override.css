@@ -1,22 +1,23 @@
-/* Legend in the Mist — Color Override
-   Tags: #eed693
+/* Legend in the Mist — Tag/Status Color Override
+   Tags:     #eed693
    Statuses: #bccdb0
-   Positive/Negative does not change background color
+   Text:     #724A32
 */
 
 :root {
   --litm-tag-yellow: #eed693;
   --litm-status-green: #bccdb0;
+  --litm-tag-text: #724A32;
 }
 
-/* Keep system vars aligned */
+/* Align system vars */
 body {
   --litm-color-tag-bg: var(--litm-tag-yellow);
   --litm-color-status-bg: var(--litm-status-green);
 }
 
 /* ---------------------------------
-   Tags
+   Tag backgrounds
    --------------------------------- */
 
 .mist-engine .tag,
@@ -35,7 +36,7 @@ body {
 }
 
 /* ---------------------------------
-   Statuses
+   Status backgrounds
    --------------------------------- */
 
 .mist-engine .status,
@@ -51,7 +52,20 @@ body {
 }
 
 /* ---------------------------------
-   Prevent valence-based recoloring
+   Text color for all tags/statuses
+   --------------------------------- */
+
+.tag,
+.status,
+.fts-input-name.tag,
+.fts-input-name.status,
+.selected-tags .tag,
+.selected-tags-container .tag {
+  color: var(--litm-tag-text) !important;
+}
+
+/* ---------------------------------
+   Prevent valence recoloring
    --------------------------------- */
 
 .tag.positive,
@@ -65,9 +79,7 @@ body {
 .character-container .selected-tags-container .tag.positive,
 .character-container .selected-tags-container .tag.negative,
 .mist-engine .fts-input-name.tag.positive,
-.mist-engine .fts-input-name.tag.negative,
-mark.orange,
-.mist-engine mark.orange {
+.mist-engine .fts-input-name.tag.negative {
   background-color: var(--litm-tag-yellow) !important;
 }
 
@@ -81,7 +93,7 @@ mark.orange,
 }
 
 /* ---------------------------------
-   NPC limit description
+   NPC description
    --------------------------------- */
 
 .mist-engine .npc-limit-description .tag {
@@ -94,7 +106,7 @@ mark.orange,
 
 /* ---------------------------------
    Tiered statuses rendered as `.tag`
-   module.js adds `.is-status` in these UIs
+   (module.js adds .is-status)
    --------------------------------- */
 
 .selected-tags-container .tag.is-status,
@@ -104,4 +116,20 @@ mark.orange,
 .message-content .selected-tags .tag.is-status.positive,
 .message-content .selected-tags .tag.is-status.negative {
   background-color: var(--litm-status-green) !important;
+}
+
+/* ---------------------------------
+   Negative icon
+   Add it anywhere a negative tag/status appears,
+   unless the system already injected the icon.
+   --------------------------------- */
+
+.tag.negative:not(:has(i.fa-angles-down))::before,
+.status.negative:not(:has(i.fa-angles-down))::before,
+.fts-input-name.negative:not(:has(i.fa-angles-down))::before {
+  content: "\f103";
+  font-family: "Font Awesome 6 Pro";
+  font-weight: 300;
+  margin-right: 0.35em;
+}
 }
