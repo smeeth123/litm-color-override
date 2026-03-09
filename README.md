@@ -10,18 +10,9 @@ This override instead follows the core game convention:
 
 • Statuses are always green
 
+In addtion, the module also standardizes font color for tags and statuse (for readability with this color scheme), and ensures a visual indicator for all negative tags and stauses.
+
 The change is purely visual and does not alter mechanics or data.
-
-⸻
-
-What It Changes
-
-Different parts of the UI render tags and statuses inconsistently.
-In several places, statuses are actually output as plain .tag elements with a tier suffix, which makes them impossible to style correctly using CSS alone.
-
-This module:
-1.	Applies a consistent color palette via CSS.
-2.	Adds a small client-side script that identifies tiered entries (e.g. -2, +2, or a tier shown on a new line) and marks them as statuses so they can be styled correctly.
 
 Manifest URL: 
 `
