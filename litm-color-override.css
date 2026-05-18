@@ -128,8 +128,7 @@ body {
 .status.negative:not(:has(i.fa-angles-down))::before,
 .fts-input-name.negative:not(:has(i.fa-angles-down))::before {
   content: "\f103";
-  font-family: "Font Awesome 6 Pro";
-  font-weight: 300;
+  font: var(--fa-font-light);
   margin-right: 0.35em;
 }
 }
