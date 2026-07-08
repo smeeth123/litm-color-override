@@ -3,6 +3,40 @@
   if (globalThis[KEY]) return;
   globalThis[KEY] = true;
 
+  const MODULE_ID = "litm-color-override";
+
+const COLOR_SETTINGS = {
+  positiveTag: {
+    name: "Positive Tags",
+    default: "#efd693",
+    cssVar: "--litm-positive-tag-bg"
+  },
+  negativeTag: {
+    name: "Negative Tags",
+    default: "#ecba85",
+    cssVar: "--litm-negative-tag-bg"
+  },
+  positiveStatus: {
+    name: "Positive Statuses",
+    default: "#bccdaf",
+    cssVar: "--litm-positive-status-bg"
+  },
+  negativeStatus: {
+    name: "Negative Statuses",
+    default: "#93b07d",
+    cssVar: "--litm-negative-status-bg"
+  }
+};
+
+function applyColors() {
+  for (const [key, cfg] of Object.entries(COLOR_SETTINGS)) {
+    document.documentElement.style.setProperty(
+      cfg.cssVar,
+      game.settings.get(MODULE_ID, key)
+    );
+  }
+}
+
   const DASH_TIER_RX = /(?:-|–|—)\s*\d+\s*$/;
 
   const normalize = (s) => (s || "").replace(/\s+/g, " ").trim();
@@ -60,12 +94,28 @@
     }
   });
 
-  Hooks.on("ready", () => {
-    scan();
-    obs.observe(document.body, { childList: true, subtree: true });
-    setTimeout(scan, 250);
-    setTimeout(scan, 1000);
-  });
+  Hooks.once("init", () => {
+  for (const [key, cfg] of Object.entries(COLOR_SETTINGS)) {
+    game.settings.register(MODULE_ID, key, {
+      name: cfg.name,
+      hint: `Background color for ${cfg.name.toLowerCase()}.`,
+      scope: "world",
+      config: true,
+      type: String,
+      default: cfg.default,
+      onChange: applyColors
+    });
+  }
+});
+  
+Hooks.on("ready", () => {
+  applyColors();
+
+  scan();
+  obs.observe(document.body, { childList: true, subtree: true });
+  setTimeout(scan, 250);
+  setTimeout(scan, 1000);
+});
 
   Hooks.on("renderApplication", () => setTimeout(scan, 0));
   Hooks.on("renderChatMessage", () => setTimeout(scan, 0));
