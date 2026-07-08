@@ -1,13 +1,19 @@
 /* Legend in the Mist — Tag/Status Color Override
-   Tags:     #eed693
-   Statuses: #bccdb0
-   Text:     #724A32
+
+   Provides configurable colors for:
+   • Positive Tags
+   • Negative Tags
+   • Positive Statuses
+   • Negative Statuses
+
+   Configure colors in Module Settings.
 */
 
 :root {
-  --litm-tag-yellow: #eed693;
-  --litm-status-green: #bccdb0;
-  --litm-tag-text: #724A32;
+  --litm-positive-tag-bg: #efd693;
+  --litm-negative-tag-bg: #ecba85;
+  --litm-positive-status-bg: #bccdaf;
+  --litm-negative-status-bg: #93b07d;
 }
 
 /* Align system vars */
@@ -32,7 +38,7 @@ body {
 .mist-engine [data-document-name*="Challenge"] .tag,
 .mist-engine [data-type*="challenge"] .tag,
 .mist-engine .fts-input-name.tag {
-  background-color: var(--litm-tag-yellow) !important;
+  background-color: var(--litm-positive-tag-bg) !important;
 }
 
 /* ---------------------------------
@@ -48,7 +54,7 @@ body {
 .mist-engine [data-document-name*="Challenge"] .status,
 .mist-engine [data-type*="challenge"] .status,
 .mist-engine .fts-input-name.status {
-  background-color: var(--litm-status-green) !important;
+  background-color: var(--litm-positive-status-bg) !important;
 }
 
 /* ---------------------------------
@@ -69,27 +75,33 @@ body {
    --------------------------------- */
 
 .tag.positive,
-.tag.negative,
 .mist-engine .tag.positive,
-.mist-engine .tag.negative,
 .message-content .selected-tags .tag.positive,
-.message-content .selected-tags .tag.negative,
 .roll-dialog-container .selected-tags-container .tag.positive,
-.roll-dialog-container .selected-tags-container .tag.negative,
 .character-container .selected-tags-container .tag.positive,
+.mist-engine .fts-input-name.tag.positive {
+  background-color: var(--litm-positive-tag-bg) !important;
+}
+
+.tag.negative,
+.mist-engine .tag.negative,
+.message-content .selected-tags .tag.negative,
+.roll-dialog-container .selected-tags-container .tag.negative,
 .character-container .selected-tags-container .tag.negative,
-.mist-engine .fts-input-name.tag.positive,
 .mist-engine .fts-input-name.tag.negative {
-  background-color: var(--litm-tag-yellow) !important;
+  background-color: var(--litm-negative-tag-bg) !important;
 }
 
 .status.positive,
-.status.negative,
 .mist-engine .status.positive,
+.mist-engine .fts-input-name.status.positive {
+  background-color: var(--litm-positive-status-bg) !important;
+}
+
+.status.negative,
 .mist-engine .status.negative,
-.mist-engine .fts-input-name.status.positive,
 .mist-engine .fts-input-name.status.negative {
-  background-color: var(--litm-status-green) !important;
+  background-color: var(--litm-negative-status-bg) !important;
 }
 
 /* ---------------------------------
@@ -97,11 +109,11 @@ body {
    --------------------------------- */
 
 .mist-engine .npc-limit-description .tag {
-  background-color: var(--litm-tag-yellow) !important;
+  background-color: var(--litm-positive-tag-bg) !important;
 }
 
 .mist-engine .npc-limit-description .status {
-  background-color: var(--litm-status-green) !important;
+  background-color: var(--litm-positive-status-bg) !important;
 }
 
 /* ---------------------------------
@@ -111,24 +123,7 @@ body {
 
 .selected-tags-container .tag.is-status,
 .selected-tags-container .tag.is-status.positive,
-.selected-tags-container .tag.is-status.negative,
 .message-content .selected-tags .tag.is-status,
-.message-content .selected-tags .tag.is-status.positive,
-.message-content .selected-tags .tag.is-status.negative {
-  background-color: var(--litm-status-green) !important;
-}
-
-/* ---------------------------------
-   Negative icon
-   Add it anywhere a negative tag/status appears,
-   unless the system already injected the icon.
-   --------------------------------- */
-
-.tag.negative:not(:has(i.fa-angles-down))::before,
-.status.negative:not(:has(i.fa-angles-down))::before,
-.fts-input-name.negative:not(:has(i.fa-angles-down))::before {
-  content: "\f103";
-  font: var(--fa-font-light);
-  margin-right: 0.35em;
-}
+.message-content .selected-tags .tag.is-status.positive {
+  background-color: var(--litm-positive-status-bg) !important;
 }
