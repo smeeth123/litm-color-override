@@ -94,7 +94,8 @@ function applyColors() {
     }
   });
 
-  Hooks.once("init", () => {
+Hooks.once("init", () => {
+  // Register the four color settings
   for (const [key, cfg] of Object.entries(COLOR_SETTINGS)) {
     game.settings.register(MODULE_ID, key, {
       name: cfg.name,
@@ -106,6 +107,28 @@ function applyColors() {
       onChange: applyColors
     });
   }
+
+  // Register a "Reset Colors" checkbox
+  game.settings.register(MODULE_ID, "resetDefaults", {
+    name: "Reset Colors to Defaults",
+    hint: "Enable to restore the default colors. The checkbox will automatically turn back off.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: async (value) => {
+      if (!value) return;
+
+      for (const [key, cfg] of Object.entries(COLOR_SETTINGS)) {
+        await game.settings.set(MODULE_ID, key, cfg.default);
+      }
+
+      await game.settings.set(MODULE_ID, "resetDefaults", false);
+
+      applyColors();
+      ui.notifications.info("Legend in the Mist colors reset to defaults.");
+    }
+  });
 });
   
 Hooks.on("ready", () => {
