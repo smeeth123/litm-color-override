@@ -127,3 +127,15 @@ body {
 .message-content .selected-tags .tag.is-status.positive {
   background-color: var(--litm-positive-status-bg) !important;
 }
+
+/* Negative tiered statuses in chat cards */
+.message-content .selected-tags .tag.negative.is-status,
+.message-content .selected-tags .tag.status.negative.is-status {
+  background-color: var(--litm-negative-status-bg) !important;
+}
+
+/* Negative tiered statuses in roll dialog */
+.roll-dialog-container .selected-tags-container .selected-tag.tag.negative.is-status,
+.roll-dialog-container .selected-tags-container .selected-tag.tag.status.negative.is-status {
+  background-color: var(--litm-negative-status-bg) !important;
+}
