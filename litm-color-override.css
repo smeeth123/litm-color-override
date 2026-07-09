@@ -134,8 +134,10 @@ body {
   background-color: var(--litm-negative-status-bg) !important;
 }
 
-/* Negative tiered statuses in roll dialog */
+/* Negative tiered statuses */
 .roll-dialog-container .selected-tags-container .selected-tag.tag.negative.is-status,
-.roll-dialog-container .selected-tags-container .selected-tag.tag.status.negative.is-status {
+.roll-dialog-container .selected-tags-container .selected-tag.tag.status.negative.is-status,
+.character-container .selected-tags-container .tag.negative.is-status,
+.character-container .selected-tags-container .tag[data-mod-type="status"].negative {
   background-color: var(--litm-negative-status-bg) !important;
 }
