@@ -102,8 +102,12 @@ Hooks.once("init", () => {
       hint: `Background color for ${cfg.name.toLowerCase()}.`,
       scope: "world",
       config: true,
-      type: String,
-      default: cfg.default,
+      type: new foundry.data.fields.ColorField({
+  required: true,
+  nullable: false,
+  initial: cfg.default
+}),
+default: cfg.default,
       onChange: applyColors
     });
   }
