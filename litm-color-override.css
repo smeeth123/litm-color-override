@@ -141,3 +141,13 @@ body {
 .character-container .selected-tags-container .tag[data-mod-type="status"].negative {
   background-color: var(--litm-negative-status-bg) !important;
 }
+
+/* Preserve readable tag/status text and apply module colors in dark tooltips */
+aside[role="tooltip"].theme-dark mark.tag {
+  color: #000 !important;
+}
+
+aside[role="tooltip"].theme-dark mark.status {
+  background-color: var(--litm-positive-status-bg) !important;
+  color: #000 !important;
+}
