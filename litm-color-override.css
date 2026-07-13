@@ -192,3 +192,16 @@ aside[role="tooltip"].theme-dark mark.limit {
   background: var(--litm-limit-bg) !important;
   background-image: none !important;
 }
+
+/* Story Themes use unqualified tags and weaknesses without the .tag class. */
+.scene-story-theme-tags mark.tag,
+.scene-story-theme-tags mark[data-type="tag"] {
+  background: var(--litm-positive-tag-bg) !important;
+  background-image: none !important;
+}
+
+.scene-story-theme-tags mark.weakness,
+.scene-story-theme-tags mark[data-type="weakness"] {
+  background: var(--litm-negative-tag-bg) !important;
+  background-image: none !important;
+}
