@@ -1,194 +1,185 @@
-/* Legend in the Mist - Color Override
+(() => {
+  "use strict";
 
-   Configurable colors:
-   - Positive Tags
-   - Negative Tags and Weakness Tags
-   - Positive Statuses
-   - Negative Statuses
-   - Limits
+  const MODULE_ID = "litm-color-override";
+  const INITIALIZED_KEY = "__LITM_COLOR_OVERRIDE_INITIALIZED__";
 
-   Configure colors in Foundry's Module Settings.
-*/
+  if (globalThis[INITIALIZED_KEY]) return;
+  globalThis[INITIALIZED_KEY] = true;
 
-:root {
-  --litm-positive-tag-bg: #efd693;
-  --litm-negative-tag-bg: #ecba85;
-  --litm-positive-status-bg: #bccdaf;
-  --litm-negative-status-bg: #93b07d;
-  --litm-limit-bg: #d0a08d;
-}
+  const COLOR_SETTINGS = {
+    positiveTag: {
+      name: "Positive Tags",
+      hint: "Background color used for positive tags.",
+      default: "#efd693",
+      cssVar: "--litm-positive-tag-bg"
+    },
+    negativeTag: {
+      name: "Negative Tags and Weakness Tags",
+      hint: "Background color used for negative tags and weakness tags.",
+      default: "#ecba85",
+      cssVar: "--litm-negative-tag-bg"
+    },
+    positiveStatus: {
+      name: "Positive Statuses",
+      hint: "Background color used for positive statuses.",
+      default: "#bccdaf",
+      cssVar: "--litm-positive-status-bg"
+    },
+    negativeStatus: {
+      name: "Negative Statuses",
+      hint: "Background color used for negative statuses.",
+      default: "#93b07d",
+      cssVar: "--litm-negative-status-bg"
+    },
+    limit: {
+      name: "Limits",
+      hint: "Background color used for limits.",
+      default: "#d0a08d",
+      cssVar: "--litm-limit-bg"
+    }
+  };
 
-/* Keep the system's own default color variables aligned with this module. */
-body {
-  --litm-color-tag-bg: var(--litm-positive-tag-bg);
-  --litm-color-status-bg: var(--litm-positive-status-bg);
-}
+  function applyColors() {
+    if (!globalThis.game?.settings) return;
 
-/* Positive and otherwise unclassified tags. */
-.tag.positive:not(.status):not(.is-status),
-.mist-engine .tag.positive:not(.status):not(.is-status),
-.journal-entry-content .tag.positive:not(.status):not(.is-status),
-.message-content .selected-tags .tag.positive:not(.status):not(.is-status),
-.roll-dialog-container .selected-tags-container .tag.positive:not(.status):not(.is-status),
-.character-container .selected-tags-container .tag.positive:not(.status):not(.is-status),
-.mist-engine .fts-input-name.tag.positive:not(.status),
-.mist-engine .npc-tag:not(.negative):not(.weakness),
-.mist-engine [class*="challenge"] .tag:not(.negative):not(.weakness):not(.status):not(.is-status),
-.mist-engine [data-document-name*="Challenge"] .tag:not(.negative):not(.weakness):not(.status):not(.is-status),
-.mist-engine [data-type*="challenge"] .tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
-  background: var(--litm-positive-tag-bg) !important;
-  background-image: none !important;
-}
+    const root = document.documentElement;
 
-/* Negative tags and weakness tags intentionally share one setting. */
-.tag.negative:not(.status):not(.is-status),
-.mist-engine .tag.negative:not(.status):not(.is-status),
-.journal-entry-content .tag.negative:not(.status):not(.is-status),
-.message-content .selected-tags .tag.negative:not(.status):not(.is-status),
-.roll-dialog-container .selected-tags-container .tag.negative:not(.status):not(.is-status),
-.character-container .selected-tags-container .tag.negative:not(.status):not(.is-status),
-.mist-engine .fts-input-name.tag.negative:not(.status),
-.tag.weakness,
-mark.tag.weakness,
-.mist-engine .tag.weakness,
-.scene-weakness-tag {
-  background: var(--litm-negative-tag-bg) !important;
-  background-image: none !important;
-}
+    for (const [key, config] of Object.entries(COLOR_SETTINGS)) {
+      let color = config.default;
 
-/* Positive statuses, including status pills with no explicit valence. */
-.status.positive,
-.status:not(.negative),
-.mist-engine .status.positive,
-.mist-engine .status:not(.negative),
-.journal-entry-content .status.positive,
-.journal-entry-content .status:not(.negative),
-.mist-engine .fts-input-name.status.positive,
-.mist-engine .fts-input-name.status:not(.negative),
-.mist-engine .npc-tag-status-value:not(.negative),
-.mist-engine mark.green:not(.negative),
-.selected-tags-container .tag.is-status:not(.negative),
-.selected-tags-container .tag[data-mod-type="status"]:not(.negative),
-.message-content .selected-tags .tag.is-status:not(.negative),
-.message-content .selected-tags .tag[data-mod-type="status"]:not(.negative) {
-  background: var(--litm-positive-status-bg) !important;
-  background-image: none !important;
-}
+      try {
+        color = game.settings.get(MODULE_ID, key) || config.default;
+      } catch (error) {
+        console.warn(`${MODULE_ID} | Could not read setting ${key}; using its default.`, error);
+      }
 
-/* Negative statuses in sheets, chat cards, roll dialogs, and Scene Tags. */
-.status.negative,
-.mist-engine .status.negative,
-.journal-entry-content .status.negative,
-.mist-engine .fts-input-name.status.negative,
-.selected-tags-container .tag.is-status.negative,
-.selected-tags-container .tag[data-mod-type="status"].negative,
-.message-content .selected-tags .tag.is-status.negative,
-.message-content .selected-tags .tag[data-mod-type="status"].negative,
-.roll-dialog-container .selected-tags-container .selected-tag.tag.is-status.negative,
-.roll-dialog-container .selected-tags-container .selected-tag.tag[data-mod-type="status"].negative,
-.character-container .selected-tags-container .tag.is-status.negative,
-.character-container .selected-tags-container .tag[data-mod-type="status"].negative {
-  background: var(--litm-negative-status-bg) !important;
-  background-image: none !important;
-}
+      root.style.setProperty(config.cssVar, color);
+    }
+  }
 
-/* Limits. */
-.limit,
-mark.limit,
-.mist-engine .limit,
-.mist-engine mark.limit {
-  background: var(--litm-limit-bg) !important;
-  background-image: none !important;
-}
+  Hooks.once("init", () => {
+    const { ColorField } = foundry.data.fields;
 
-/* NPC descriptions. */
-.mist-engine .npc-limit-description .tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
-  background: var(--litm-positive-tag-bg) !important;
-  background-image: none !important;
-}
+    for (const [key, config] of Object.entries(COLOR_SETTINGS)) {
+      game.settings.register(MODULE_ID, key, {
+        name: config.name,
+        hint: config.hint,
+        scope: "world",
+        config: true,
+        type: new ColorField({
+          required: true,
+          nullable: false,
+          initial: config.default
+        }),
+        default: config.default,
+        onChange: applyColors
+      });
+    }
 
-.mist-engine .npc-limit-description .tag.negative,
-.mist-engine .npc-limit-description .tag.weakness {
-  background: var(--litm-negative-tag-bg) !important;
-  background-image: none !important;
-}
+    game.settings.register(MODULE_ID, "resetDefaults", {
+      name: "Reset Colors to Defaults",
+      hint: "Enable this setting to restore all five default colors. It automatically turns itself off after resetting.",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      onChange: async (resetRequested) => {
+        if (!resetRequested) return;
 
-.mist-engine .npc-limit-description .status:not(.negative) {
-  background: var(--litm-positive-status-bg) !important;
-  background-image: none !important;
-}
+        try {
+          for (const [key, config] of Object.entries(COLOR_SETTINGS)) {
+            await game.settings.set(MODULE_ID, key, config.default);
+          }
 
-.mist-engine .npc-limit-description .status.negative {
-  background: var(--litm-negative-status-bg) !important;
-  background-image: none !important;
-}
+          await game.settings.set(MODULE_ID, "resetDefaults", false);
+          applyColors();
+          ui.notifications.info("Legend in the Mist colors reset to defaults.");
+        } catch (error) {
+          console.error(`${MODULE_ID} | Failed to reset colors.`, error);
+          ui.notifications.error("Unable to reset the Legend in the Mist colors.");
+        }
+      }
+    });
+  });
 
-/* Dark tooltips inherit white text, so only their inline pills need a text fix. */
-aside[role="tooltip"].theme-dark mark.tag,
-aside[role="tooltip"].theme-dark mark.status,
-aside[role="tooltip"].theme-dark mark.limit {
-  color: #000 !important;
-}
+  // Some selected statuses are rendered with the system's generic .tag class.
+  // Mark those pills with .is-status so the stylesheet can color them correctly.
+  const TIER_SUFFIX = /(?:-|\u2013|\u2014)\s*\d+\s*$/;
+  const SELECTED_PILL_SELECTOR = [
+    ".selected-tags-container .tag",
+    ".selected-tags .tag"
+  ].join(", ");
 
-aside[role="tooltip"].theme-dark mark.tag:not(.negative):not(.weakness):not(.status) {
-  background: var(--litm-positive-tag-bg) !important;
-  background-image: none !important;
-}
+  function hasTieredStatusText(element) {
+    const rawText = element.textContent || "";
+    const normalizedText = rawText.replace(/\s+/g, " ").trim();
 
-aside[role="tooltip"].theme-dark mark.tag.negative,
-aside[role="tooltip"].theme-dark mark.tag.weakness {
-  background: var(--litm-negative-tag-bg) !important;
-  background-image: none !important;
-}
+    if (TIER_SUFFIX.test(normalizedText)) return true;
 
-aside[role="tooltip"].theme-dark mark.status:not(.negative) {
-  background: var(--litm-positive-status-bg) !important;
-  background-image: none !important;
-}
+    // Handle templates that put the tier number on a separate line.
+    return /\n/.test(rawText) && /\s\d+\s*$/.test(normalizedText);
+  }
 
-aside[role="tooltip"].theme-dark mark.status.negative {
-  background: var(--litm-negative-status-bg) !important;
-  background-image: none !important;
-}
+  function patchSelectedPill(element) {
+    const isStatus =
+      element.dataset.modType === "status" ||
+      element.classList.contains("status") ||
+      hasTieredStatusText(element);
 
-aside[role="tooltip"].theme-dark mark.limit {
-  background: var(--litm-limit-bg) !important;
-  background-image: none !important;
-}
+    element.classList.toggle("is-status", isStatus);
+  }
 
-/* Selection dialogs: black text and a single solid configured background. */
-.tag-container mark.tag,
-.tag-container mark.status,
-.tag-container mark.limit {
-  color: #000 !important;
-}
+  function scanForSelectedStatuses(root = document) {
+    if (root instanceof Element && root.matches(SELECTED_PILL_SELECTOR)) {
+      patchSelectedPill(root);
+    }
 
-.tag-container mark.tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
-  background: var(--litm-positive-tag-bg) !important;
-  background-image: none !important;
-}
+    root.querySelectorAll?.(SELECTED_PILL_SELECTOR).forEach(patchSelectedPill);
+  }
 
-.tag-container mark.tag.negative:not(.status):not(.is-status),
-.tag-container mark.tag.weakness {
-  background: var(--litm-negative-tag-bg) !important;
-  background-image: none !important;
-}
+  let scanScheduled = false;
 
-.tag-container mark.status:not(.negative),
-.tag-container mark.tag.is-status:not(.negative),
-.tag-container mark.tag[data-mod-type="status"]:not(.negative) {
-  background: var(--litm-positive-status-bg) !important;
-  background-image: none !important;
-}
+  function scheduleScan() {
+    if (scanScheduled) return;
+    scanScheduled = true;
 
-.tag-container mark.status.negative,
-.tag-container mark.tag.is-status.negative,
-.tag-container mark.tag[data-mod-type="status"].negative {
-  background: var(--litm-negative-status-bg) !important;
-  background-image: none !important;
-}
+    requestAnimationFrame(() => {
+      scanScheduled = false;
+      scanForSelectedStatuses();
+    });
+  }
 
-.tag-container mark.limit {
-  background: var(--litm-limit-bg) !important;
-  background-image: none !important;
-}
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (!(node instanceof Element)) continue;
+
+        if (
+          node.matches(SELECTED_PILL_SELECTOR) ||
+          node.querySelector(SELECTED_PILL_SELECTOR)
+        ) {
+          scheduleScan();
+          return;
+        }
+      }
+    }
+  });
+
+  Hooks.once("ready", () => {
+    applyColors();
+    scanForSelectedStatuses();
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Catch applications that finish rendering just after the ready hook.
+    setTimeout(scanForSelectedStatuses, 250);
+    setTimeout(scanForSelectedStatuses, 1000);
+  });
+
+  Hooks.on("renderApplication", scheduleScan);
+  Hooks.on("renderChatMessage", scheduleScan);
+})();
