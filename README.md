@@ -11,3 +11,5 @@ Manifest URL:
 `
 https://github.com/smeeth123/litm-color-override/releases/latest/download/module.json
 `
+
+Text on tags, statuses, and limits automatically switches between black and white to provide the higher contrast against each configured background color. Text colors update immediately when the background settings change.

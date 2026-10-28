@@ -12,16 +12,23 @@
 
 :root {
   --litm-positive-tag-bg: #efd693;
+  --litm-positive-tag-fg: #000000;
   --litm-negative-tag-bg: #ecba85;
+  --litm-negative-tag-fg: #000000;
   --litm-positive-status-bg: #bccdaf;
+  --litm-positive-status-fg: #000000;
   --litm-negative-status-bg: #93b07d;
+  --litm-negative-status-fg: #000000;
   --litm-limit-bg: #d0a08d;
+  --litm-limit-fg: #000000;
 }
 
 /* Keep the system's own default color variables aligned with this module. */
 body {
   --litm-color-tag-bg: var(--litm-positive-tag-bg);
+  --litm-color-tag-fg: #000000;
   --litm-color-status-bg: var(--litm-positive-status-bg);
+  --litm-color-status-fg: #000000;
 }
 
 /* Positive and otherwise unclassified tags. */
@@ -37,6 +44,7 @@ body {
 .mist-engine [data-document-name*="Challenge"] .tag:not(.negative):not(.weakness):not(.status):not(.is-status),
 .mist-engine [data-type*="challenge"] .tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
   background: var(--litm-positive-tag-bg) !important;
+  color: var(--litm-positive-tag-fg) !important;
   background-image: none !important;
 }
 
@@ -53,6 +61,7 @@ mark.tag.weakness,
 .mist-engine .tag.weakness,
 .scene-weakness-tag {
   background: var(--litm-negative-tag-bg) !important;
+  color: var(--litm-negative-tag-fg) !important;
   background-image: none !important;
 }
 
@@ -72,6 +81,7 @@ mark.tag.weakness,
 .message-content .selected-tags .tag.is-status:not(.negative),
 .message-content .selected-tags .tag[data-mod-type="status"]:not(.negative) {
   background: var(--litm-positive-status-bg) !important;
+  color: var(--litm-positive-status-fg) !important;
   background-image: none !important;
 }
 
@@ -89,6 +99,7 @@ mark.tag.weakness,
 .character-container .selected-tags-container .tag.is-status.negative,
 .character-container .selected-tags-container .tag[data-mod-type="status"].negative {
   background: var(--litm-negative-status-bg) !important;
+  color: var(--litm-negative-status-fg) !important;
   background-image: none !important;
 }
 
@@ -98,79 +109,81 @@ mark.limit,
 .mist-engine .limit,
 .mist-engine mark.limit {
   background: var(--litm-limit-bg) !important;
+  color: var(--litm-limit-fg) !important;
   background-image: none !important;
 }
 
 /* NPC descriptions. */
 .mist-engine .npc-limit-description .tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
   background: var(--litm-positive-tag-bg) !important;
+  color: var(--litm-positive-tag-fg) !important;
   background-image: none !important;
 }
 
 .mist-engine .npc-limit-description .tag.negative,
 .mist-engine .npc-limit-description .tag.weakness {
   background: var(--litm-negative-tag-bg) !important;
+  color: var(--litm-negative-tag-fg) !important;
   background-image: none !important;
 }
 
 .mist-engine .npc-limit-description .status:not(.negative) {
   background: var(--litm-positive-status-bg) !important;
+  color: var(--litm-positive-status-fg) !important;
   background-image: none !important;
 }
 
 .mist-engine .npc-limit-description .status.negative {
   background: var(--litm-negative-status-bg) !important;
+  color: var(--litm-negative-status-fg) !important;
   background-image: none !important;
 }
 
-/* Dark tooltips inherit white text, so only their inline pills need a text fix. */
-aside[role="tooltip"].theme-dark mark.tag,
-aside[role="tooltip"].theme-dark mark.status,
-aside[role="tooltip"].theme-dark mark.limit {
-  color: #000 !important;
-}
+/* Dark tooltip pills use the configured background and automatic text color. */
 
 aside[role="tooltip"].theme-dark mark.tag:not(.negative):not(.weakness):not(.status) {
   background: var(--litm-positive-tag-bg) !important;
+  color: var(--litm-positive-tag-fg) !important;
   background-image: none !important;
 }
 
 aside[role="tooltip"].theme-dark mark.tag.negative,
 aside[role="tooltip"].theme-dark mark.tag.weakness {
   background: var(--litm-negative-tag-bg) !important;
+  color: var(--litm-negative-tag-fg) !important;
   background-image: none !important;
 }
 
 aside[role="tooltip"].theme-dark mark.status:not(.negative) {
   background: var(--litm-positive-status-bg) !important;
+  color: var(--litm-positive-status-fg) !important;
   background-image: none !important;
 }
 
 aside[role="tooltip"].theme-dark mark.status.negative {
   background: var(--litm-negative-status-bg) !important;
+  color: var(--litm-negative-status-fg) !important;
   background-image: none !important;
 }
 
 aside[role="tooltip"].theme-dark mark.limit {
   background: var(--litm-limit-bg) !important;
+  color: var(--litm-limit-fg) !important;
   background-image: none !important;
 }
 
-/* Selection dialogs: black text and a single solid configured background. */
-.tag-container mark.tag,
-.tag-container mark.status,
-.tag-container mark.limit {
-  color: #000 !important;
-}
+/* Selection dialogs use a solid background and automatic text color. */
 
 .tag-container mark.tag:not(.negative):not(.weakness):not(.status):not(.is-status) {
   background: var(--litm-positive-tag-bg) !important;
+  color: var(--litm-positive-tag-fg) !important;
   background-image: none !important;
 }
 
 .tag-container mark.tag.negative:not(.status):not(.is-status),
 .tag-container mark.tag.weakness {
   background: var(--litm-negative-tag-bg) !important;
+  color: var(--litm-negative-tag-fg) !important;
   background-image: none !important;
 }
 
@@ -178,6 +191,7 @@ aside[role="tooltip"].theme-dark mark.limit {
 .tag-container mark.tag.is-status:not(.negative),
 .tag-container mark.tag[data-mod-type="status"]:not(.negative) {
   background: var(--litm-positive-status-bg) !important;
+  color: var(--litm-positive-status-fg) !important;
   background-image: none !important;
 }
 
@@ -185,11 +199,13 @@ aside[role="tooltip"].theme-dark mark.limit {
 .tag-container mark.tag.is-status.negative,
 .tag-container mark.tag[data-mod-type="status"].negative {
   background: var(--litm-negative-status-bg) !important;
+  color: var(--litm-negative-status-fg) !important;
   background-image: none !important;
 }
 
 .tag-container mark.limit {
   background: var(--litm-limit-bg) !important;
+  color: var(--litm-limit-fg) !important;
   background-image: none !important;
 }
 
@@ -197,11 +213,13 @@ aside[role="tooltip"].theme-dark mark.limit {
 .scene-story-theme-tags mark.tag,
 .scene-story-theme-tags mark[data-type="tag"] {
   background: var(--litm-positive-tag-bg) !important;
+  color: var(--litm-positive-tag-fg) !important;
   background-image: none !important;
 }
 
 .scene-story-theme-tags mark.weakness,
 .scene-story-theme-tags mark[data-type="weakness"] {
   background: var(--litm-negative-tag-bg) !important;
+  color: var(--litm-negative-tag-fg) !important;
   background-image: none !important;
 }

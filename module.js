@@ -40,6 +40,24 @@
     }
   };
 
+  // Choose the black/white foreground with the higher relative-luminance contrast.
+  function getTextColor(background) {
+    let hex = String(background).trim().replace(/^#/, "");
+    if (/^[0-9a-f]{3}$/i.test(hex)) {
+      hex = hex.split("").map((digit) => digit + digit).join("");
+    }
+    if (!/^[0-9a-f]{6}$/i.test(hex)) return "#000000";
+
+    const channels = hex.match(/../g).map((channel) => {
+      const value = parseInt(channel, 16) / 255;
+      return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    const luminance = channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+    const blackContrast = (luminance + 0.05) / 0.05;
+    const whiteContrast = 1.05 / (luminance + 0.05);
+    return blackContrast >= whiteContrast ? "#000000" : "#ffffff";
+  }
+
   function applyColors() {
     if (!globalThis.game?.settings) return;
 
@@ -55,6 +73,7 @@
       }
 
       root.style.setProperty(config.cssVar, color);
+      root.style.setProperty(config.cssVar.replace(/-bg$/, "-fg"), getTextColor(color));
     }
   }
 
